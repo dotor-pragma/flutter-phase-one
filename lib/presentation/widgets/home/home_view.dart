@@ -27,8 +27,10 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cardsProvider = context.watch<CardsProvider>();
-    final cards = cardsProvider.cards;
+    final cards = context.select((CardsProvider provider) => provider.cards);
+    final totalCards = context.select(
+      (CardsProvider provider) => provider.totalCards,
+    );
     final theme = Theme.of(context);
 
     return DecoratedBox(
@@ -49,7 +51,7 @@ class HomeView extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.fromLTRB(24, 24, 24, 12),
               child: HomeHeader(
-                totalCards: cardsProvider.totalCards,
+                totalCards: totalCards,
                 onCreatePressed: onCreateCard,
               ),
             ),
@@ -91,9 +93,9 @@ class HomeView extends StatelessWidget {
                       FormScreenArgs.edit(card: card, index: index),
                     ),
                     onDelete: () =>
-                        _confirmDeletion(context, cardsProvider, index, card),
+                        _confirmDeletion(context, index: index, card: card),
                     onConfirmDismiss: () =>
-                        _confirmDeletion(context, cardsProvider, index, card),
+                        _confirmDeletion(context, index: index, card: card),
                   );
                 },
               ),
@@ -104,11 +106,10 @@ class HomeView extends StatelessWidget {
   }
 
   Future<bool> _confirmDeletion(
-    BuildContext context,
-    CardsProvider provider,
-    int index,
-    InfoCard card,
-  ) async {
+    BuildContext context, {
+    required int index,
+    required InfoCard card,
+  }) async {
     final confirmed = await showModalBottomSheet<bool>(
       context: context,
       backgroundColor: Colors.transparent,
@@ -120,6 +121,7 @@ class HomeView extends StatelessWidget {
       return false;
     }
 
+    final provider = context.read<CardsProvider>();
     final removed = provider.removeCard(index);
     if (removed == null) {
       onFeedback(
