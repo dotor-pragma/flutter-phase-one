@@ -29,7 +29,11 @@ class _HomeView extends StatelessWidget {
         itemCount: cardsProvider.cardsList.length,
         itemBuilder: (context, index) {
           final card = cardsProvider.cardsList[index];
-          return CustomInfoCard(card: card, index: index);
+          return CustomInfoCard(
+            card: card,
+            index: index,
+            onDelete: () => cardsProvider.removeCard(index),
+          );
         },
       ),
     );

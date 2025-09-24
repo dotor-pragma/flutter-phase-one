@@ -1,20 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:provider/provider.dart';
 
 import 'package:fase_1/domain/entities/info_card.dart';
-import 'package:fase_1/presentation/providers/cards_provider.dart';
 
 class CustomInfoCard extends StatelessWidget {
-  const CustomInfoCard({super.key, required this.card, required this.index});
-
   final InfoCard card;
   final int index;
+  final VoidCallback onDelete;
+
+  const CustomInfoCard({
+    super.key,
+    required this.card,
+    required this.index,
+    required this.onDelete,
+  });
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final cardsProvider = context.read<CardsProvider>();
 
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
@@ -23,7 +26,7 @@ class CustomInfoCard extends StatelessWidget {
         elevation: 1,
         clipBehavior: Clip.antiAlias,
         child: InkWell(
-          onTap: () => context.pushNamed('details', extra: card),
+          onTap: () => context.go('/details', extra: card),
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
             child: Row(
@@ -63,8 +66,8 @@ class CustomInfoCard extends StatelessWidget {
                     alpha: 0.1,
                   ),
                   iconColor: theme.colorScheme.primary,
-                  onPressed: () => context.pushNamed(
-                    'form',
+                  onPressed: () => context.go(
+                    '/form',
                     extra: {'card': card, 'index': index},
                   ),
                 ),
@@ -76,7 +79,7 @@ class CustomInfoCard extends StatelessWidget {
                     alpha: 0.1,
                   ),
                   iconColor: theme.colorScheme.error,
-                  onPressed: () => cardsProvider.removeCard(index),
+                  onPressed: onDelete,
                 ),
                 const SizedBox(width: 8),
                 Icon(
