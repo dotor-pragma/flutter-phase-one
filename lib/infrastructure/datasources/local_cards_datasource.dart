@@ -1,7 +1,8 @@
+import 'package:fase_1/domain/datasources/cards_datasource.dart';
 import 'package:fase_1/domain/entities/info_card.dart';
 
 /// Simple in-memory data source used to bootstrap the examples cards.
-class LocalCardsDataSource {
+class LocalCardsDataSource implements CardsDataSource {
   LocalCardsDataSource();
 
   final List<InfoCard> _cards = [
@@ -57,12 +58,15 @@ class LocalCardsDataSource {
     ),
   ];
 
+  @override
   List<InfoCard> fetchCards() => List.unmodifiable(_cards);
 
+  @override
   void saveCard(InfoCard card) {
     _cards.add(card);
   }
 
+  @override
   void updateCard(int index, InfoCard card) {
     if (index < 0 || index >= _cards.length) {
       throw RangeError.index(index, _cards, 'index');
@@ -70,6 +74,7 @@ class LocalCardsDataSource {
     _cards[index] = card;
   }
 
+  @override
   void removeCard(int index) {
     if (index < 0 || index >= _cards.length) {
       throw RangeError.index(index, _cards, 'index');

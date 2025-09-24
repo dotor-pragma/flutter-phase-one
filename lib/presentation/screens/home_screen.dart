@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 
 import 'package:fase_1/presentation/screens/details_screen.dart';
 import 'package:fase_1/presentation/screens/form_screen.dart';
-import 'package:fase_1/presentation/widgets/home/home_view.dart';
+import 'package:fase_1/presentation/widgets/home/home.dart';
 
 class HomeScreen extends StatelessWidget {
   static const String routeName = 'home_screen';

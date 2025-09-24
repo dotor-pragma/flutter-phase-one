@@ -1,11 +1,11 @@
+import 'package:fase_1/domain/datasources/cards_datasource.dart';
 import 'package:fase_1/domain/entities/info_card.dart';
 import 'package:fase_1/domain/repositories/cards_repository.dart';
-import 'package:fase_1/infrastructure/datasources/local_cards_datasource.dart';
 
 class CardsRepositoryImpl implements CardsRepository {
   CardsRepositoryImpl(this._dataSource);
 
-  final LocalCardsDataSource _dataSource;
+  final CardsDataSource _dataSource;
 
   @override
   List<InfoCard> getCards() {
