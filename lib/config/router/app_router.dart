@@ -14,17 +14,21 @@ final appRouter = GoRouter(
       path: '/form',
       name: FormScreen.routeName,
       builder: (context, state) {
-        final extras = state.extra as Map<String, dynamic>?;
-        return FormScreen(
-          card: extras?['card'] as InfoCard?,
-          index: extras?['index'] as int?,
-        );
+        final args =
+            state.extra as FormScreenArgs? ?? const FormScreenArgs.create();
+        return FormScreen(args: args);
       },
     ),
     GoRoute(
       path: '/details',
       name: DetailsScreen.routeName,
-      builder: (context, state) => DetailsScreen(card: state.extra as InfoCard),
+      builder: (context, state) {
+        final card = state.extra as InfoCard?;
+        if (card == null) {
+          throw ArgumentError('InfoCard is required to open DetailsScreen');
+        }
+        return DetailsScreen(card: card);
+      },
     ),
   ],
 );

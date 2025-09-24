@@ -5,12 +5,23 @@ import 'package:provider/provider.dart';
 import 'package:fase_1/domain/entities/info_card.dart';
 import 'package:fase_1/presentation/providers/cards_provider.dart';
 
-class FormScreen extends StatefulWidget {
-  static const String routeName = 'form_screen';
+class FormScreenArgs {
+  const FormScreenArgs.create() : card = null, index = null;
+
+  const FormScreenArgs.edit({required this.card, required this.index});
+
   final InfoCard? card;
   final int? index;
 
-  const FormScreen({super.key, this.card, this.index});
+  bool get isEditing => card != null && index != null;
+}
+
+class FormScreen extends StatefulWidget {
+  static const String routeName = 'form_screen';
+
+  const FormScreen({super.key, this.args = const FormScreenArgs.create()});
+
+  final FormScreenArgs args;
 
   @override
   State<FormScreen> createState() => _FormScreenState();
@@ -21,14 +32,16 @@ class _FormScreenState extends State<FormScreen> {
   late final TextEditingController _titleController;
   late final TextEditingController _descriptionController;
 
-  bool get _isEditing => widget.card != null && widget.index != null;
+  bool get _isEditing => widget.args.isEditing;
 
   @override
   void initState() {
     super.initState();
-    _titleController = TextEditingController(text: widget.card?.title ?? '');
+    _titleController = TextEditingController(
+      text: widget.args.card?.title ?? '',
+    );
     _descriptionController = TextEditingController(
-      text: widget.card?.description ?? '',
+      text: widget.args.card?.description ?? '',
     );
   }
 
@@ -50,20 +63,21 @@ class _FormScreenState extends State<FormScreen> {
     final cardsProvider = context.read<CardsProvider>();
 
     if (_isEditing) {
+      final originalCard = widget.args.card!;
       final hasChanges =
-          title != widget.card!.title ||
-          description != widget.card!.description;
+          title != originalCard.title ||
+          description != originalCard.description;
       if (!hasChanges) {
         context.pop();
         return;
       }
-      cardsProvider.editCard(
-        widget.index!,
+      cardsProvider.updateExistingCard(
+        widget.args.index!,
         title: title,
         description: description,
       );
     } else {
-      cardsProvider.addCard(title, description);
+      cardsProvider.addNewCard(title: title, description: description);
     }
 
     context.pop();

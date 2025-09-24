@@ -18,7 +18,7 @@ class HomeScreen extends StatelessWidget {
         onPressed: () => context.pushNamed(FormScreen.routeName),
         child: const Icon(Icons.add),
       ),
-      body: _HomeView(),
+      body: const _HomeView(),
     );
   }
 }
@@ -28,21 +28,27 @@ class _HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cardsProvider = Provider.of<CardsProvider>(context);
+    final cardsProvider = context.watch<CardsProvider>();
+    final cards = cardsProvider.cards;
+
+    if (cards.isEmpty) {
+      return const Center(child: Text('No hay tarjetas disponibles.'));
+    }
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8.0),
       child: ListView.builder(
-        itemCount: cardsProvider.cardsList.length,
+        itemCount: cards.length,
         padding: const EdgeInsets.only(bottom: 120.0),
         itemBuilder: (context, index) {
-          final card = cardsProvider.cardsList[index];
+          final card = cards[index];
           return CustomInfoCard(
             card: card,
             index: index,
             onDelete: () => cardsProvider.removeCard(index),
             onEdit: () => context.pushNamed(
               FormScreen.routeName,
-              extra: {'card': card, 'index': index},
+              extra: FormScreenArgs.edit(card: card, index: index),
             ),
             onTap: () =>
                 context.pushNamed(DetailsScreen.routeName, extra: card),
