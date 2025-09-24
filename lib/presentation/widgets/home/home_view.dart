@@ -3,11 +3,8 @@ import 'package:provider/provider.dart';
 
 import 'package:fase_1/domain/entities/info_card.dart';
 import 'package:fase_1/presentation/providers/cards_provider.dart';
-import 'package:fase_1/presentation/screens/details_screen.dart';
-import 'package:fase_1/presentation/screens/form_screen.dart';
-import 'package:fase_1/presentation/widgets/home/animated_card_item.dart';
-import 'package:fase_1/presentation/widgets/home/home_empty_state.dart';
-import 'package:fase_1/presentation/widgets/home/home_header.dart';
+import 'package:fase_1/presentation/screens/screens.dart';
+import 'package:fase_1/presentation/widgets/widgets.dart';
 
 typedef HomeFeedbackCallback = void Function(String message, {bool isError});
 
