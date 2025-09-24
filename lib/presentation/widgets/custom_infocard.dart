@@ -1,19 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
 import 'package:fase_1/domain/entities/info_card.dart';
 
 class CustomInfoCard extends StatelessWidget {
-  final InfoCard card;
-  final int index;
-  final VoidCallback onDelete;
-
   const CustomInfoCard({
     super.key,
-    required this.card,
     required this.index,
+    required this.card,
     required this.onDelete,
+    required this.onEdit,
+    required this.onTap,
   });
+
+  final int index;
+  final InfoCard card;
+  final VoidCallback onDelete;
+  final VoidCallback onEdit;
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +29,7 @@ class CustomInfoCard extends StatelessWidget {
         elevation: 1,
         clipBehavior: Clip.antiAlias,
         child: InkWell(
-          onTap: () => context.go('/details', extra: card),
+          onTap: onTap,
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
             child: Row(
@@ -66,10 +69,7 @@ class CustomInfoCard extends StatelessWidget {
                     alpha: 0.1,
                   ),
                   iconColor: theme.colorScheme.primary,
-                  onPressed: () => context.go(
-                    '/form',
-                    extra: {'card': card, 'index': index},
-                  ),
+                  onPressed: onEdit,
                 ),
                 const SizedBox(width: 8),
                 _CardActionButton(

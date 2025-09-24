@@ -1,13 +1,20 @@
+import 'package:fase_1/domain/entities/info_card.dart';
 import 'package:flutter/material.dart';
 
 class DetailsScreen extends StatelessWidget {
   static const String routeName = 'details_screen';
-  const DetailsScreen({super.key});
+  final InfoCard card;
+
+  const DetailsScreen({super.key, required this.card});
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(child: Text('Hello World from DetailsScreen')),
+    return Scaffold(
+      appBar: AppBar(title: Text(card.title)),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Text(card.description),
+      ),
     );
   }
 }

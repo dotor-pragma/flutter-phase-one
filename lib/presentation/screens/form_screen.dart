@@ -6,8 +6,9 @@ class FormScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(child: Text('Hello World from FormScreen')),
+    return Scaffold(
+      appBar: AppBar(title: const Text('Form')),
+      body: const Center(child: Text('Hello World from FormScreen')),
     );
   }
 }

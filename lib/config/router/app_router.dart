@@ -1,5 +1,6 @@
 import 'package:go_router/go_router.dart';
 import 'package:fase_1/presentation/screens/screens.dart';
+import 'package:fase_1/domain/entities/info_card.dart';
 
 final appRouter = GoRouter(
   initialLocation: '/',
@@ -17,7 +18,7 @@ final appRouter = GoRouter(
     GoRoute(
       path: '/details',
       name: DetailsScreen.routeName,
-      builder: (context, state) => const DetailsScreen(),
+      builder: (context, state) => DetailsScreen(card: state.extra as InfoCard),
     ),
   ],
 );
