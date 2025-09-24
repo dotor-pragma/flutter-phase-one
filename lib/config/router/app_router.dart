@@ -1,6 +1,7 @@
+import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+
 import 'package:fase_1/presentation/screens/screens.dart';
-import 'package:fase_1/domain/entities/info_card.dart';
 
 final appRouter = GoRouter(
   initialLocation: '/',
@@ -13,21 +14,61 @@ final appRouter = GoRouter(
     GoRoute(
       path: '/form',
       name: FormScreen.routeName,
-      builder: (context, state) {
+      pageBuilder: (context, state) {
         final args =
             state.extra as FormScreenArgs? ?? const FormScreenArgs.create();
-        return FormScreen(args: args);
+        return CustomTransitionPage<void>(
+          key: state.pageKey,
+          child: FormScreen(args: args),
+          transitionDuration: const Duration(milliseconds: 300),
+          reverseTransitionDuration: const Duration(milliseconds: 220),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            final curved = CurvedAnimation(
+              parent: animation,
+              curve: Curves.easeOutCubic,
+              reverseCurve: Curves.easeInCubic,
+            );
+            return FadeTransition(
+              opacity: curved,
+              child: SlideTransition(
+                position: Tween<Offset>(
+                  begin: const Offset(0, 0.05),
+                  end: Offset.zero,
+                ).animate(curved),
+                child: child,
+              ),
+            );
+          },
+        );
       },
     ),
     GoRoute(
       path: '/details',
       name: DetailsScreen.routeName,
-      builder: (context, state) {
-        final card = state.extra as InfoCard?;
-        if (card == null) {
-          throw ArgumentError('InfoCard is required to open DetailsScreen');
+      pageBuilder: (context, state) {
+        final args = state.extra as DetailsScreenArgs?;
+        if (args == null) {
+          throw ArgumentError(
+            'DetailsScreenArgs are required to open DetailsScreen',
+          );
         }
-        return DetailsScreen(card: card);
+        return CustomTransitionPage<void>(
+          key: state.pageKey,
+          child: DetailsScreen(args: args),
+          transitionDuration: const Duration(milliseconds: 320),
+          reverseTransitionDuration: const Duration(milliseconds: 260),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            final curved = CurvedAnimation(
+              parent: animation,
+              curve: Curves.easeOutCubic,
+              reverseCurve: Curves.easeInBack,
+            );
+            return ScaleTransition(
+              scale: Tween<double>(begin: 0.95, end: 1).animate(curved),
+              child: FadeTransition(opacity: curved, child: child),
+            );
+          },
+        );
       },
     ),
   ],

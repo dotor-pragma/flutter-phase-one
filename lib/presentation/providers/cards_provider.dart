@@ -28,9 +28,12 @@ class CardsProvider extends ChangeNotifier {
   List<InfoCard> _cards;
 
   UnmodifiableListView<InfoCard> get cards => UnmodifiableListView(_cards);
+  int get totalCards => _cards.length;
 
-  void addNewCard({required String title, required String description}) {
-    if (title.trim().isEmpty || description.trim().isEmpty) return;
+  bool addNewCard({required String title, required String description}) {
+    if (title.trim().isEmpty || description.trim().isEmpty) {
+      return false;
+    }
 
     final newCard = InfoCard(
       title: title.trim(),
@@ -38,15 +41,20 @@ class CardsProvider extends ChangeNotifier {
     );
     _addCard(newCard);
     _refreshCards();
+    return true;
   }
 
-  void updateExistingCard(
+  bool updateExistingCard(
     int index, {
     required String title,
     required String description,
   }) {
-    if (title.trim().isEmpty || description.trim().isEmpty) return;
-    if (index < 0 || index >= _cards.length) return;
+    if (title.trim().isEmpty || description.trim().isEmpty) {
+      return false;
+    }
+    if (index < 0 || index >= _cards.length) {
+      return false;
+    }
 
     final updatedCard = InfoCard(
       title: title.trim(),
@@ -54,12 +62,18 @@ class CardsProvider extends ChangeNotifier {
     );
     _updateCard(index, updatedCard);
     _refreshCards();
+    return true;
   }
 
-  void removeCard(int index) {
-    if (index < 0 || index >= _cards.length) return;
+  InfoCard? removeCard(int index) {
+    if (index < 0 || index >= _cards.length) {
+      return null;
+    }
+
+    final removedCard = _cards[index];
     _deleteCard(index);
     _refreshCards();
+    return removedCard;
   }
 
   void _refreshCards() {
