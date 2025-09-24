@@ -1,5 +1,6 @@
-import 'package:fase_1/domain/entities/info_card.dart';
 import 'package:flutter/material.dart';
+
+import 'package:fase_1/domain/entities/info_card.dart';
 
 class DetailsScreen extends StatelessWidget {
   static const String routeName = 'details_screen';

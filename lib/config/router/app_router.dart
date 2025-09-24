@@ -13,7 +13,13 @@ final appRouter = GoRouter(
     GoRoute(
       path: '/form',
       name: FormScreen.routeName,
-      builder: (context, state) => const FormScreen(),
+      builder: (context, state) {
+        final extras = state.extra as Map<String, dynamic>?;
+        return FormScreen(
+          card: extras?['card'] as InfoCard?,
+          index: extras?['index'] as int?,
+        );
+      },
     ),
     GoRoute(
       path: '/details',

@@ -77,6 +77,7 @@ class CardsProvider extends ChangeNotifier {
     required String title,
     required String description,
   }) {
+    print('editCard $index | $title | $description');
     cardsList[index] = InfoCard(title: title, description: description);
     notifyListeners();
   }
