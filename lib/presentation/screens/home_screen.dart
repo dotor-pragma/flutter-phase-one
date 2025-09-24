@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import 'package:fase_1/presentation/providers/cards_provider.dart';
+import 'package:fase_1/presentation/widgets/custom_infocard.dart';
 
 class HomeScreen extends StatelessWidget {
   static const String routeName = 'home_screen';
@@ -6,8 +10,28 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(child: Text('Hello World from HomeScreen')),
+    return Scaffold(
+      appBar: AppBar(title: const Text('Home')),
+      body: _HomeView(),
+    );
+  }
+}
+
+class _HomeView extends StatelessWidget {
+  const _HomeView();
+
+  @override
+  Widget build(BuildContext context) {
+    final cardsProvider = Provider.of<CardsProvider>(context);
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+      child: ListView.builder(
+        itemCount: cardsProvider.cardsList.length,
+        itemBuilder: (context, index) {
+          final card = cardsProvider.cardsList[index];
+          return CustomInfoCard(card: card, index: index);
+        },
+      ),
     );
   }
 }
