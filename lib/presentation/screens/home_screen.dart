@@ -14,6 +14,10 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Home')),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => context.pushNamed(FormScreen.routeName),
+        child: const Icon(Icons.add),
+      ),
       body: _HomeView(),
     );
   }
@@ -29,6 +33,7 @@ class _HomeView extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 8.0),
       child: ListView.builder(
         itemCount: cardsProvider.cardsList.length,
+        padding: const EdgeInsets.only(bottom: 120.0),
         itemBuilder: (context, index) {
           final card = cardsProvider.cardsList[index];
           return CustomInfoCard(
