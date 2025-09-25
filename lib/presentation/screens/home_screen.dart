@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 import 'package:fase_1/presentation/providers/cards_provider.dart';
-import 'package:fase_1/presentation/widgets/custom_infocard.dart';
+import 'package:fase_1/presentation/widgets/infocard/custom_infocard.dart';
 import 'package:fase_1/presentation/screens/screens.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -38,7 +38,6 @@ class _HomeView extends StatelessWidget {
           final card = cardsProvider.cardsList[index];
           return CustomInfoCard(
             card: card,
-            index: index,
             onDelete: () => cardsProvider.removeCard(index),
             onEdit: () => context.pushNamed(
               FormScreen.routeName,
