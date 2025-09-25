@@ -14,11 +14,8 @@ final appRouter = GoRouter(
       path: '/form',
       name: FormScreen.routeName,
       builder: (context, state) {
-        final extras = state.extra as Map<String, dynamic>?;
-        return FormScreen(
-          card: extras?['card'] as InfoCard?,
-          index: extras?['index'] as int?,
-        );
+        final extras = state.extra as FormScreenParams?;
+        return FormScreen(params: extras);
       },
     ),
     GoRoute(

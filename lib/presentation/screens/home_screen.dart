@@ -41,7 +41,7 @@ class _HomeView extends StatelessWidget {
             onDelete: () => cardsProvider.removeCard(index),
             onEdit: () => context.pushNamed(
               FormScreen.routeName,
-              extra: {'card': card, 'index': index},
+              extra: FormScreenParams(card: card, index: index),
             ),
             onTap: () =>
                 context.pushNamed(DetailsScreen.routeName, extra: card),

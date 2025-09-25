@@ -14,8 +14,8 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [ChangeNotifierProvider(create: (_) => CardsProvider())],
+    return ChangeNotifierProvider(
+      create: (_) => CardsProvider(),
       child: MaterialApp.router(
         debugShowCheckedModeBanner: false,
         theme: AppTheme(selectedColor: 4).getTheme(),
