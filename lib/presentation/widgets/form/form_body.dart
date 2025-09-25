@@ -16,9 +16,9 @@ class FormBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        _TitleField(controller: titleController),
+        _FormField(controller: titleController, labelText: 'Titulo'),
         const SizedBox(height: 16),
-        _DescriptionField(controller: descriptionController),
+        _FormField(controller: descriptionController, labelText: 'Descripción'),
         const SizedBox(height: 24),
         _SaveButton(onPressed: onSave),
       ],
@@ -26,51 +26,20 @@ class FormBody extends StatelessWidget {
   }
 }
 
-class _TitleField extends StatelessWidget {
-  const _TitleField({required this.controller});
+class _FormField extends StatelessWidget {
+  const _FormField({required this.controller, required this.labelText});
 
   final TextEditingController controller;
+  final String labelText;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       controller: controller,
-      textInputAction: TextInputAction.next,
-      decoration: const InputDecoration(
-        labelText: 'Title',
-        border: OutlineInputBorder(),
+      decoration: InputDecoration(
+        labelText: labelText,
+        border: const OutlineInputBorder(),
       ),
-      validator: (value) {
-        if (value == null || value.trim().isEmpty) {
-          return 'Please enter a title';
-        }
-        return null;
-      },
-    );
-  }
-}
-
-class _DescriptionField extends StatelessWidget {
-  const _DescriptionField({required this.controller});
-
-  final TextEditingController controller;
-
-  @override
-  Widget build(BuildContext context) {
-    return TextFormField(
-      controller: controller,
-      decoration: const InputDecoration(
-        labelText: 'Description',
-        border: OutlineInputBorder(),
-      ),
-      minLines: 3,
-      maxLines: 5,
-      validator: (value) {
-        if (value == null || value.trim().isEmpty) {
-          return 'Please enter a description';
-        }
-        return null;
-      },
     );
   }
 }
@@ -82,9 +51,12 @@ class _SaveButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: double.infinity,
-      child: ElevatedButton(onPressed: onPressed, child: const Text('Save')),
+    return ElevatedButton(
+      onPressed: onPressed,
+      child: const Padding(
+        padding: EdgeInsets.symmetric(horizontal: 20),
+        child: Text('Guardar'),
+      ),
     );
   }
 }
