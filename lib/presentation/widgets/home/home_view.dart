@@ -84,7 +84,11 @@ class HomeView extends StatelessWidget {
                       '${card.title}-${card.description}-$index',
                     ),
                     onTap: () => onShowDetails(
-                      DetailsScreenArgs(card: card, heroTag: heroTag),
+                      DetailsScreenArgs(
+                        card: card,
+                        index: index,
+                        heroTag: heroTag,
+                      ),
                     ),
                     onEdit: () => onEditCard(
                       FormScreenArgs.edit(card: card, index: index),
