@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-
+import 'dart:collection';
 import 'package:fase_1/domain/entities/info_card.dart';
 
 class CardsProvider extends ChangeNotifier {
   final ScrollController scrollController = ScrollController();
 
-  List<InfoCard> cardsList = [
+  final List<InfoCard> _cardsList = [
     InfoCard(
       title: 'Guía de Café de Especialidad',
       description:
@@ -58,17 +58,20 @@ class CardsProvider extends ChangeNotifier {
     ),
   ];
 
+  UnmodifiableListView<InfoCard> get cardsList =>
+      UnmodifiableListView(_cardsList);
+
   void addCard(String title, String description) {
     if (title.isEmpty || description.isEmpty) return;
 
     final newCard = InfoCard(title: title, description: description);
 
-    cardsList.add(newCard);
+    _cardsList.add(newCard);
     notifyListeners();
   }
 
   void removeCard(int index) {
-    cardsList.removeAt(index);
+    _cardsList.removeAt(index);
     notifyListeners();
   }
 
@@ -77,8 +80,7 @@ class CardsProvider extends ChangeNotifier {
     required String title,
     required String description,
   }) {
-    print('editCard $index | $title | $description');
-    cardsList[index] = InfoCard(title: title, description: description);
+    _cardsList[index] = InfoCard(title: title, description: description);
     notifyListeners();
   }
 }

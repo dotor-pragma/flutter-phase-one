@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
+import 'package:fase_1/presentation/screens/screens.dart';
 import 'package:fase_1/presentation/providers/cards_provider.dart';
 import 'package:fase_1/presentation/widgets/infocard/custom_infocard.dart';
-import 'package:fase_1/presentation/screens/screens.dart';
 
 class HomeScreen extends StatelessWidget {
   static const String routeName = 'home_screen';
@@ -28,7 +28,7 @@ class _HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cardsProvider = Provider.of<CardsProvider>(context);
+    final cardsProvider = context.watch<CardsProvider>();
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8.0),
       child: ListView.builder(

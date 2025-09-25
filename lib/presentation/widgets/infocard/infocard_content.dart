@@ -24,7 +24,6 @@ class InfoCardContent extends StatelessWidget {
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
             children: [
               Text(
                 card.title,
@@ -39,7 +38,7 @@ class InfoCardContent extends StatelessWidget {
                 card.description,
                 style: theme.textTheme.bodyMedium?.copyWith(
                   color: theme.textTheme.bodyMedium?.color?.withValues(
-                    alpha: 0.7,
+                    alpha: 0.8,
                   ),
                 ),
                 maxLines: 2,

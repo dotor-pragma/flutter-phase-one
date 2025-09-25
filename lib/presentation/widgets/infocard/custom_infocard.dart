@@ -1,7 +1,7 @@
-import 'package:fase_1/presentation/widgets/infocard/infocard_content.dart';
 import 'package:flutter/material.dart';
 
 import 'package:fase_1/domain/entities/info_card.dart';
+import 'package:fase_1/presentation/widgets/infocard/infocard_content.dart';
 
 class CustomInfoCard extends StatelessWidget {
   const CustomInfoCard({
@@ -24,13 +24,10 @@ class CustomInfoCard extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: Card(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        clipBehavior: Clip.antiAlias,
         elevation: 1,
         child: InkWell(
           onTap: onTap,
-          customBorder: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20),
-          ),
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
             child: InfoCardContent(
