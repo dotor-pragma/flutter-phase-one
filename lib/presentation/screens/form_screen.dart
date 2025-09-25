@@ -154,7 +154,7 @@ class _FormScreenState extends State<FormScreen> {
       ),
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.all(24),
+          padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -174,7 +174,10 @@ class _FormScreenState extends State<FormScreen> {
                 ),
                 shadowColor: theme.colorScheme.primary.withValues(alpha: 0.15),
                 child: Padding(
-                  padding: const EdgeInsets.all(24),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 10,
+                    vertical: 20,
+                  ),
                   child: Form(
                     key: _formKey,
                     autovalidateMode: _autovalidateMode,
