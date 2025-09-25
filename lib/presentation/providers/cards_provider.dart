@@ -80,6 +80,7 @@ class CardsProvider extends ChangeNotifier {
     required String title,
     required String description,
   }) {
+    if (title.isEmpty || description.isEmpty) return;
     _cardsList[index] = InfoCard(title: title, description: description);
     notifyListeners();
   }
