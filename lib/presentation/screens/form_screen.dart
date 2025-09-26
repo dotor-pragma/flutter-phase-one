@@ -11,6 +11,8 @@ class FormScreenParams {
   final int? index;
 
   FormScreenParams({this.card, this.index});
+
+  Map<String, dynamic>? toJson() => {'card': card?.toJson(), 'index': index};
 }
 
 class FormScreen extends StatefulWidget {

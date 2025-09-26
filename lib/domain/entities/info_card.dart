@@ -3,4 +3,6 @@ class InfoCard {
   final String description;
 
   InfoCard({required this.title, required this.description});
+
+  Map<String, dynamic> toJson() => {'title': title, 'description': description};
 }

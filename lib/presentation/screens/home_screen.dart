@@ -43,8 +43,10 @@ class _HomeView extends StatelessWidget {
               FormScreen.routeName,
               extra: FormScreenParams(card: card, index: index),
             ),
-            onTap: () =>
-                context.pushNamed(DetailsScreen.routeName, extra: card),
+            onTap: () => context.pushNamed(
+              DetailsScreen.routeName,
+              extra: DetailsScreenParams(card: card, index: index),
+            ),
           );
         },
       ),
